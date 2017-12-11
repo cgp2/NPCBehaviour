@@ -11,7 +11,7 @@ namespace ModelNPCBehaviour.Locations
     {
         public string Name;
         public LocationType type;
-        public Dictionary<PurposeType, double> SatisfiedPurpose;
+        public Dictionary<PurposeType, int> SatisfiedPurpose;
         public int Position;
         public List<APerson> Characters;
         //protected Thread thWeiter = new Thread(CharacterWeiter);

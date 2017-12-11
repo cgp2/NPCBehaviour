@@ -18,10 +18,10 @@ namespace ModelNPCBehaviour.Locations
             type = LocationType.Home;
             Position = locationSlot;
 
-            SatisfiedPurpose = new Dictionary<PurposeType, double>();
-            SatisfiedPurpose.Add(PurposeType.Sleep, -0.4);
-            SatisfiedPurpose.Add(PurposeType.Eat, -0.5);
-            SatisfiedPurpose.Add(PurposeType.Drink, -0.7);
+            SatisfiedPurpose = new Dictionary<PurposeType, int>();
+            SatisfiedPurpose.Add(PurposeType.Sleep, -10);
+            SatisfiedPurpose.Add(PurposeType.Eat, -20);
+            SatisfiedPurpose.Add(PurposeType.Drink, -30);
         }
 
         public override void CharacterEnter(APerson ch)
@@ -71,14 +71,14 @@ namespace ModelNPCBehaviour.Locations
 
         private void Sleep(APerson ch)
         {
-            double initialRate = ch.TirednessRate;
+            int initialRate = ch.TirednessRate;
             ch.TirednessRate = SatisfiedPurpose[PurposeType.Sleep];
             ch.IsBusy = true;
             isBedOccupied = true;
 
             Console.WriteLine("{0} is sleeping in {1}", ch.Name, Name);
 
-            while (ch.Needs.Tiredness > 4.0)
+            while (ch.Needs.Tiredness > 60)
             {
 
             }
@@ -92,14 +92,14 @@ namespace ModelNPCBehaviour.Locations
 
         private void Eat(APerson ch)
         {
-            double initialRate = ch.HungerRate;
+            int initialRate = ch.HungerRate;
             double initialHunger = ch.Needs.Hunger;
             ch.HungerRate= SatisfiedPurpose[PurposeType.Eat];
             ch.IsBusy = true;
 
             Console.WriteLine("{0} is eating in {1}", ch.Name, Name);
 
-            while (initialHunger - ch.Needs.Hunger < 3.0)
+            while (initialHunger - ch.Needs.Hunger < 45)
             {
 
             }
@@ -111,14 +111,14 @@ namespace ModelNPCBehaviour.Locations
 
         private void Drink(APerson ch)
         {
-            double initialRate = ch.ThirstRate;
+            int initialRate = ch.ThirstRate;
             double initialThirst = ch.Needs.Thirst;
             ch.ThirstRate = SatisfiedPurpose[PurposeType.Drink];
             ch.IsBusy = true;
 
             Console.WriteLine("{0} is drinking in {1}", ch.Name, Name);
 
-            while (initialThirst- ch.Needs.Thirst < 3.0)
+            while (initialThirst- ch.Needs.Thirst < 45)
             {
 
             }

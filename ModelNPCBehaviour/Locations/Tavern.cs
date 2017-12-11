@@ -18,11 +18,11 @@ namespace ModelNPCBehaviour.Locations
             Characters = new List<APerson>();
             Position = locationSlot;
 
-            SatisfiedPurpose = new Dictionary<PurposeType, double>();
-            SatisfiedPurpose.Add(PurposeType.Eat, -0.7);
-            SatisfiedPurpose.Add(PurposeType.Drink, -1);
-            SatisfiedPurpose.Add(PurposeType.HaveFun, -0.4);
-            SatisfiedPurpose.Add(PurposeType.Chat, -0.2);
+            SatisfiedPurpose = new Dictionary<PurposeType, int>();
+            SatisfiedPurpose.Add(PurposeType.Eat, -40);
+            SatisfiedPurpose.Add(PurposeType.Drink, -50);
+            SatisfiedPurpose.Add(PurposeType.HaveFun, -30);
+            SatisfiedPurpose.Add(PurposeType.Chat, -25);
         }
 
         public override void CharacterEnter(APerson ch)
@@ -80,14 +80,14 @@ namespace ModelNPCBehaviour.Locations
 
         private void Dance(APerson ch)
         {
-            double initialSorrow = ch.Needs.Sorrow;
-            double initialRate = ch.SorrowRate;
+            int initialSorrow = ch.Needs.Sorrow;
+            int initialRate = ch.SorrowRate;
             ch.SorrowRate = SatisfiedPurpose[PurposeType.HaveFun];
             ch.IsBusy = true;
 
             Console.WriteLine("{0} is dancing in {1}", ch.Name, Name);
 
-            while (initialSorrow - ch.Needs.Sorrow < 3.0)
+            while (initialSorrow - ch.Needs.Sorrow < 50)
             {
                 if (ch.Needs.Sorrow < Math.Abs(ch.SorrowRate))
                     break;
@@ -100,15 +100,15 @@ namespace ModelNPCBehaviour.Locations
 
         private void Chat(APerson ch)
         {
-            double initialLonelyness = ch.Needs.Loneliness;
-            double initialRate = ch.LonelinessRate;
+           int initialLonelyness = ch.Needs.Loneliness;
+           int initialRate = ch.LonelinessRate;
             ch.LonelinessRate = SatisfiedPurpose[PurposeType.Chat];
             ch.IsBusy = true;
             isBarmenBusy = true;
 
             Console.WriteLine("{0} is chating in {1}", ch.Name, Name);
 
-            while (initialLonelyness - ch.Needs.Loneliness < 2.0)
+            while (initialLonelyness - ch.Needs.Loneliness < 60)
             {
                 if (ch.Needs.Loneliness < Math.Abs(ch.LonelinessRate))
                     break;
@@ -122,14 +122,14 @@ namespace ModelNPCBehaviour.Locations
 
         private void Eat(APerson ch)
         {
-            double initialHunger = ch.Needs.Hunger;
-            double initialRate = ch.HungerRate;
+            int initialHunger = ch.Needs.Hunger;
+            int initialRate = ch.HungerRate;
             ch.HungerRate = SatisfiedPurpose[PurposeType.Eat];
             ch.IsBusy = true;
 
             Console.WriteLine("{0} is eating in {1}", ch.Name, Name);
 
-            while (initialHunger -ch.Needs.Hunger < 3.0)
+            while (initialHunger -ch.Needs.Hunger < 60)
             {
 
             }
@@ -141,14 +141,14 @@ namespace ModelNPCBehaviour.Locations
 
         private void Drink(APerson ch)
         {
-            double initialThirst = ch.Needs.Thirst;
-            double initialRate = ch.ThirstRate;
+            int initialThirst = ch.Needs.Thirst;
+            int initialRate = ch.ThirstRate;
             ch.ThirstRate = SatisfiedPurpose[PurposeType.Drink];
             ch.IsBusy = true;
 
             Console.WriteLine("{0} is drinking in {1}", ch.Name, Name);
 
-            while (initialThirst - ch.Needs.Thirst < 3.0)
+            while (initialThirst - ch.Needs.Thirst < 70)
             {
 
             }

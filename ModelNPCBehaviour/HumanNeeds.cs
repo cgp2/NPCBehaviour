@@ -9,59 +9,59 @@ namespace ModelNPCBehaviour
     public struct HumanNeeds
     {
 
-        private double _hunger;
-        private double _thirst;
-        private double _sorrow;
-        private double _tiredness;
-        private double _loneliness;
+        private int _hunger;
+        private int _thirst;
+        private int _sorrow;
+        private int _tiredness;
+        private int _loneliness;
 
-        public double Hunger
+        public int Hunger
         {   
             get { return _hunger; }
             set
             {
-                if (value >= 0 && value <= 10)
+                if (value >= 0 && value <= 100)
                     _hunger = value;
             }
         }
-        public double Thirst
+        public int Thirst
         {
             get { return _thirst; }
             set
             {
-                if (value >= 0 && value <= 10)
+                if (value >= 0 && value <= 100)
                     _thirst = value;
             }
         }
-        public double Sorrow
+        public int Sorrow
         {
             get { return _sorrow; }
             set
             {
-                if (value >= 0 && value <= 10)
+                if (value >= 0 && value <= 100)
                     _sorrow = value;
             }
         }
-        public double Tiredness
+        public int Tiredness
         {
             get { return _tiredness; }
             set
             {
-                if (value >= 0 && value <= 10)
+                if (value >= 0 && value <= 100)
                     _tiredness = value;
             }
         }
-        public double Loneliness
+        public int Loneliness
         {
             get { return _loneliness; }
             set
             {
-                if (value >= 0 && value <= 10)
+                if (value >= 0 && value <= 100)
                     _loneliness = value;
             }
         }
 
-        public HumanNeeds(double hunger = 0, double thirst = 0, double sorrow = 0, double tiredness = 0, double lonelyness = 0)
+        public HumanNeeds(int hunger = 0, int thirst = 0, int sorrow = 0, int tiredness = 0, int lonelyness = 0)
         {
             _hunger = hunger;
             _thirst = thirst;

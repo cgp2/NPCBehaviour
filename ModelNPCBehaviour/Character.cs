@@ -42,36 +42,57 @@ namespace ModelNPCBehaviour
         {
             if (IsBusy == false)
             {
-         
-                    if (Needs.Hunger > 7)
-                    {
-                        CurrentPurpose = PurposeType.Eat;
-                    }
-                    else if (Needs.Thirst > 6)
-                    {
-                        CurrentPurpose = PurposeType.Drink;
-                    }
-                    else if (Needs.Tiredness > 8)
-                    {
-                        CurrentPurpose = PurposeType.Sleep;
-                    }
-                    else if (Needs.Sorrow > 7)
-                    {
-                        CurrentPurpose = PurposeType.HaveFun;
-                    }
-                    else if (Needs.Loneliness > 7)
-                    {
-                        CurrentPurpose = PurposeType.Chat;
-                    }
-                    else
-                    {
-                    if (Needs.Sorrow > Needs.Loneliness)
-                        CurrentPurpose = PurposeType.HaveFun;
-                    else
-                        CurrentPurpose = PurposeType.Chat;
-                    }
+                List<double> Ut = new List<double>();
+                Ut.Add(HungerUtility());
+                Ut.Add(ThirstUtility());
+                Ut.Add(SorrowUtility());
+                Ut.Add(ThirednessUtility());
 
-                    var opt = ChoseOptimalLocation();
+                var maxind = Ut.IndexOf(Ut.Max());
+                switch (maxind)
+                {
+                    case 1:
+                        CurrentPurpose = PurposeType.Eat;
+                        break;
+                    case 2:
+                        CurrentPurpose = PurposeType.Drink;
+                        break;
+                    case 3:
+                        CurrentPurpose = PurposeType.HaveFun;
+                        break;
+                    case 4:
+                        CurrentPurpose = PurposeType.Sleep;
+                        break;
+                }
+                //if (Needs.Hunger > 7)
+                //{
+                //    CurrentPurpose = PurposeType.Eat;
+                //}
+                //else if (Needs.Thirst > 6)
+                //{
+                //    CurrentPurpose = PurposeType.Drink;
+                //}
+                //else if (Needs.Tiredness > 8)
+                //{
+                //    CurrentPurpose = PurposeType.Sleep;
+                //}
+                //else if (Needs.Sorrow > 7)
+                //{
+                //    CurrentPurpose = PurposeType.HaveFun;
+                //}
+                //else if (Needs.Loneliness > 7)
+                //{
+                //    CurrentPurpose = PurposeType.Chat;
+                //}
+                //else
+                //{
+                //if (Needs.Sorrow > Needs.Loneliness)
+                //    CurrentPurpose = PurposeType.HaveFun;
+                //else
+                //    CurrentPurpose = PurposeType.Chat;
+                //}
+
+                var opt = ChoseOptimalLocation();
                 if (opt.Position != CurrentPosition)
                     MoveTo(opt.Position);
                 else
@@ -89,12 +110,12 @@ namespace ModelNPCBehaviour
                 double maxWeight = -1;
                 foreach (var loc in KnownLocations)
                 {
-                    double weight = 0;
+                    int weight = 0;
                     if (loc.SatisfiedPurpose.TryGetValue(CurrentPurpose, out weight))
                     {
                         if (CurrentPosition != loc.Position)
                         {
-                            weight = Math.Abs(weight) * (1.0 / Math.Abs(CurrentPosition - loc.Position));
+                            weight = Math.Abs(weight) * (1 / Math.Abs(CurrentPosition - loc.Position));
                             if (weight > maxWeight)
                             {
                                 maxWeight = weight;
@@ -131,6 +152,24 @@ namespace ModelNPCBehaviour
             return optimalLocation;
         }
 
+        public override double HungerUtility()
+        {
+            return Needs.Hunger * Needs.Hunger / 12.0 + 0.2;
+        }
 
+        public override double ThirstUtility()
+        {
+            return (1.0 / (-Needs.Thirst + 10.0));
+        }
+
+        public override double SorrowUtility()
+        {
+            return (Needs.Sorrow / 2 + 1) * 0.7;
+        }
+
+        public override double ThirednessUtility()
+        {
+            return (Needs.Tiredness - 10.0) * Needs.Tiredness + 2.0;
+        }
     }
 }

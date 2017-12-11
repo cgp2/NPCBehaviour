@@ -21,11 +21,11 @@ namespace ModelNPCBehaviour
         public bool IsBusy = false;
 
 
-        public double HungerRate = 0.2;
-        public double ThirstRate = 0.2;
-        public double SorrowRate = 0.2;
-        public double TirednessRate = 0.2;
-        public double LonelinessRate = 0.2;
+        public int HungerRate = 5;
+        public int ThirstRate = 5;
+        public int SorrowRate = 5;
+        public int TirednessRate = 5;
+        public int LonelinessRate = 5;
 
         public List<Locations.ALocation> KnownLocations; 
 
@@ -49,6 +49,10 @@ namespace ModelNPCBehaviour
 
         public abstract void TimeTick();
 
-      
+        public abstract double HungerUtility();
+        public abstract double ThirstUtility();
+        public abstract double SorrowUtility();
+        public abstract double ThirednessUtility();
+
     }
 }

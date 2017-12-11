@@ -14,7 +14,7 @@ namespace ModelNPCBehaviour.Locations
             type = LocationType.Square;
             Characters = new List<APerson>();
             Position = locationSlot;
-            SatisfiedPurpose = new Dictionary<PurposeType, double>();
+            SatisfiedPurpose = new Dictionary<PurposeType, int>();
         }
 
 

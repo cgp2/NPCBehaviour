@@ -12,8 +12,6 @@ namespace ModelNPCBehaviour
     {
 
 
-
-
         static void Main(string[] args)
         {
             ModulationCore mc = new ModulationCore();
@@ -29,8 +27,8 @@ namespace ModelNPCBehaviour
 
             mc.AddCharacter("Robert");
             (mc.Locations.Last() as Locations.Home).Owner = mc.Characters[1].id;
-            mc.Characters[1].Needs.Tiredness = 9;
-            mc.Characters[1].Needs.Sorrow = 6;
+            mc.Characters[1].Needs.Tiredness = 90;
+            mc.Characters[1].Needs.Sorrow = 60;
 
             while (true) { }
         }
